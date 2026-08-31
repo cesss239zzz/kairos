@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="640" height="480" role="img" aria-label="Kairos">
+<defs>
+<radialGradient id="g22" cx="50%" cy="42%" r="68%">
+<stop offset="0%" stop-color="#232121"/><stop offset="60%" stop-color="#111010"/><stop offset="100%" stop-color="#070707"/>
+</radialGradient>
+<radialGradient id="a22" cx="50%" cy="45%" r="45%">
+<stop offset="0%" stop-color="#ff6600" stop-opacity=".30"/><stop offset="100%" stop-color="#ff6600" stop-opacity="0"/>
+</radialGradient>
+<filter id="b22"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>
+<rect width="640" height="480" fill="url(#g22)"/>
+<ellipse cx="320" cy="221" rx="269" ry="202" fill="url(#a22)"/>
+<ellipse cx="320" cy="278" rx="180" ry="60" fill="#000" opacity=".55" filter="url(#b22)"/>
+<ellipse cx="320" cy="250" rx="166" ry="112" fill="#1b1a1a" stroke="#2f2e2e" stroke-width="2"/>
+<ellipse cx="320" cy="250" rx="115" ry="78" fill="#141313" stroke="#3a3939" stroke-width="1"/>
+<ellipse cx="322" cy="280" rx="18" ry="15" fill="#ff6600" opacity=".9" transform="rotate(166 322 280)"/>
+<ellipse cx="362" cy="224" rx="14" ry="18" fill="#4a4746" opacity=".9" transform="rotate(81 362 224)"/>
+<ellipse cx="341" cy="248" rx="23" ry="18" fill="#332f2e" opacity=".9" transform="rotate(12 341 248)"/>
+<ellipse cx="309" cy="246" rx="16" ry="9" fill="#5d5957" opacity=".9" transform="rotate(28 309 246)"/>
+<ellipse cx="263" cy="229" rx="25" ry="18" fill="#ff6600" opacity=".9" transform="rotate(144 263 229)"/>
+<ellipse cx="348" cy="257" rx="15" ry="18" fill="#5d5957" opacity=".9" transform="rotate(79 348 257)"/>
+<ellipse cx="370" cy="226" rx="20" ry="10" fill="#332f2e" opacity=".9" transform="rotate(69 370 226)"/>
+<ellipse cx="309" cy="237" rx="16" ry="18" fill="#4a4746" opacity=".9" transform="rotate(107 309 237)"/>
+<path d="M 154 250 a 166 112 0 0 1 331 0" fill="none" stroke="#ff6600" stroke-opacity=".35" stroke-width="1.5"/>
+<text x="624" y="466" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="13" letter-spacing="2" fill="#6b6a6a">KAIROS</text>
+</svg>

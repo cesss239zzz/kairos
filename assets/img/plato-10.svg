@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="640" height="480" role="img" aria-label="Kairos">
+<defs>
+<radialGradient id="g20" cx="50%" cy="42%" r="68%">
+<stop offset="0%" stop-color="#232121"/><stop offset="60%" stop-color="#111010"/><stop offset="100%" stop-color="#070707"/>
+</radialGradient>
+<radialGradient id="a20" cx="50%" cy="45%" r="45%">
+<stop offset="0%" stop-color="#39ff14" stop-opacity=".30"/><stop offset="100%" stop-color="#39ff14" stop-opacity="0"/>
+</radialGradient>
+<filter id="b20"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>
+<rect width="640" height="480" fill="url(#g20)"/>
+<ellipse cx="320" cy="221" rx="269" ry="202" fill="url(#a20)"/>
+<ellipse cx="320" cy="278" rx="180" ry="60" fill="#000" opacity=".55" filter="url(#b20)"/>
+<ellipse cx="320" cy="250" rx="166" ry="112" fill="#1b1a1a" stroke="#2f2e2e" stroke-width="2"/>
+<ellipse cx="320" cy="250" rx="115" ry="78" fill="#141313" stroke="#3a3939" stroke-width="1"/>
+<ellipse cx="298" cy="217" rx="27" ry="10" fill="#39ff14" opacity=".9" transform="rotate(162 298 217)"/>
+<ellipse cx="330" cy="241" rx="21" ry="9" fill="#5d5957" opacity=".9" transform="rotate(105 330 241)"/>
+<ellipse cx="307" cy="255" rx="16" ry="18" fill="#4a4746" opacity=".9" transform="rotate(115 307 255)"/>
+<ellipse cx="301" cy="257" rx="27" ry="11" fill="#332f2e" opacity=".9" transform="rotate(109 301 257)"/>
+<ellipse cx="355" cy="264" rx="26" ry="12" fill="#39ff14" opacity=".9" transform="rotate(52 355 264)"/>
+<ellipse cx="308" cy="246" rx="12" ry="10" fill="#4a4746" opacity=".9" transform="rotate(72 308 246)"/>
+<ellipse cx="311" cy="265" rx="12" ry="7" fill="#332f2e" opacity=".9" transform="rotate(180 311 265)"/>
+<ellipse cx="326" cy="288" rx="15" ry="7" fill="#332f2e" opacity=".9" transform="rotate(165 326 288)"/>
+<ellipse cx="300" cy="238" rx="23" ry="11" fill="#39ff14" opacity=".9" transform="rotate(114 300 238)"/>
+<ellipse cx="374" cy="226" rx="20" ry="12" fill="#5d5957" opacity=".9" transform="rotate(42 374 226)"/>
+<ellipse cx="276" cy="268" rx="23" ry="19" fill="#4a4746" opacity=".9" transform="rotate(148 276 268)"/>
+<ellipse cx="298" cy="256" rx="11" ry="9" fill="#332f2e" opacity=".9" transform="rotate(44 298 256)"/>
+<path d="M 154 250 a 166 112 0 0 1 331 0" fill="none" stroke="#39ff14" stroke-opacity=".35" stroke-width="1.5"/>
+<text x="624" y="466" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="13" letter-spacing="2" fill="#6b6a6a">KAIROS</text>
+</svg>

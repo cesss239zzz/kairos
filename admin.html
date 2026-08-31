@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel · Kairos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="layout">
+
+  <aside class="side">
+    <div class="logo">KAIR<span>O</span>S</div>
+    <nav class="side__nav" id="nav">
+      <button data-sec="pedidos" aria-current="true">Pedidos</button>
+      <button data-sec="caja">Caja</button>
+      <button data-sec="ventas">Ventas</button>
+      <button data-sec="productos">Productos</button>
+      <button data-sec="reportes">Reportes</button>
+      <button data-sec="ajustes">Ajustes</button>
+    </nav>
+    <div class="side__pie">
+      <small>Sesión del personal</small>
+      <button class="btn btn--ghost btn--sm btn--block" id="btnSalir">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- ============ PEDIDOS ============ -->
+    <section id="secPedidos">
+      <div class="page-head">
+        <div>
+          <h1>Pedidos</h1>
+          <p id="pedidosResumen">Cola de cocina en vivo.</p>
+        </div>
+        <div class="acciones">
+          <button class="btn btn--ghost btn--sm" data-filtro="activos" id="fActivos" aria-pressed="true">En curso</button>
+          <button class="btn btn--ghost btn--sm" data-filtro="todos" id="fTodos" aria-pressed="false">Todos los de hoy</button>
+        </div>
+      </div>
+      <div class="tickets" id="listaComandas"></div>
+    </section>
+
+    <!-- ============ CAJA ============ -->
+    <section id="secCaja" class="hidden">
+      <div class="page-head">
+        <div>
+          <h1>Caja</h1>
+          <p>Seleccione un pedido para cobrarlo. El total sale de lo que la mesa consumió.</p>
+        </div>
+      </div>
+      <div class="caja">
+        <div class="card caja__lista" id="cajaLista"></div>
+        <div class="card caja__panel" id="cajaPanel"></div>
+      </div>
+    </section>
+
+    <!-- ============ VENTAS ============ -->
+    <section id="secVentas" class="hidden">
+      <div class="page-head">
+        <div>
+          <h1>Ventas</h1>
+          <p id="ventasFecha"></p>
+        </div>
+      </div>
+      <div class="kpis" id="ventasKpis"></div>
+      <div class="cols cols--2">
+        <div class="card" style="padding:24px">
+          <h3 style="font-size:18px;font-weight:600;margin-bottom:4px">Últimos siete días</h3>
+          <p class="dim" style="font-size:14px;margin:0 0 12px">Total cobrado por día.</p>
+          <div class="barras" id="barrasSemana"></div>
+        </div>
+        <div class="card" style="padding:24px">
+          <h3 style="font-size:18px;font-weight:600;margin-bottom:12px">Lo más vendido hoy</h3>
+          <div id="topProductos"></div>
+        </div>
+      </div>
+      <div class="card" style="padding:24px;margin-top:20px">
+        <h3 style="font-size:18px;font-weight:600;margin-bottom:12px">Semana en curso</h3>
+        <div class="tabla-wrap"><table class="tabla" id="tablaSemana"></table></div>
+      </div>
+    </section>
+
+    <!-- ============ PRODUCTOS ============ -->
+    <section id="secProductos" class="hidden">
+      <div class="page-head">
+        <div>
+          <h1>Productos</h1>
+          <p>Lo que se edita aquí es lo que ven los clientes en el menú digital.</p>
+        </div>
+        <div class="acciones">
+          <button class="btn btn--ghost btn--sm" id="btnNuevaCat">Nueva categoría</button>
+          <button class="btn btn--primary btn--sm" id="btnNuevoProd">Nuevo producto</button>
+        </div>
+      </div>
+
+      <h3 style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mute);margin-bottom:12px">Categorías</h3>
+      <div class="cols cols--auto" id="listaCategorias" style="margin-bottom:32px"></div>
+
+      <h3 style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mute);margin-bottom:12px">Carta</h3>
+      <div class="card tabla-wrap"><table class="tabla" id="tablaProductos"></table></div>
+    </section>
+
+    <!-- ============ REPORTES ============ -->
+    <section id="secReportes" class="hidden">
+      <div class="page-head">
+        <div>
+          <h1>Reportes</h1>
+          <p>Registro del día y arqueo de caja.</p>
+        </div>
+        <div class="acciones">
+          <input type="date" id="fechaReporte" class="btn btn--ghost btn--sm" style="text-transform:none;letter-spacing:0">
+        </div>
+      </div>
+
+      <div class="card" style="padding:24px;margin-bottom:24px">
+        <h3 style="font-size:18px;font-weight:600;margin-bottom:12px">Registro de pedidos</h3>
+        <div class="tabla-wrap"><table class="tabla" id="tablaRegistro"></table></div>
+      </div>
+
+      <h2 style="font-size:24px;font-weight:600;margin:32px 0 16px">Arqueo de caja</h2>
+      <div class="arqueo">
+        <div class="card arqueo__bloque">
+          <h3>Conteo físico</h3>
+          <p>Cuente el efectivo por denominación y anote el cierre del POS y las transferencias recibidas.</p>
+          <div class="denoms" id="denoms"></div>
+          <div class="field field--boxed" style="margin-top:20px">
+            <label for="arqFondo">Fondo de caja inicial</label>
+            <input id="arqFondo" type="number" step="0.01" value="0">
+          </div>
+          <div class="field-row">
+            <div class="field field--boxed">
+              <label for="arqPos">Cierre del POS (tarjetas)</label>
+              <input id="arqPos" type="number" step="0.01" value="0">
+            </div>
+            <div class="field field--boxed">
+              <label for="arqTransf">Transferencias recibidas</label>
+              <input id="arqTransf" type="number" step="0.01" value="0">
+            </div>
+          </div>
+          <div class="field field--boxed">
+            <label for="arqResponsable">Responsable del cierre</label>
+            <input id="arqResponsable" placeholder="Nombre de quien cierra">
+          </div>
+          <div class="field field--boxed">
+            <label for="arqNota">Observaciones</label>
+            <textarea id="arqNota" placeholder="Salidas de caja, vales, faltantes justificados…"></textarea>
+          </div>
+        </div>
+
+        <div class="card arqueo__bloque">
+          <h3>Comparación con el sistema</h3>
+          <p>Lo que el sistema registró frente a lo que hay en físico.</p>
+          <div class="tabla-wrap"><table class="tabla" id="tablaArqueo"></table></div>
+          <div class="cuadre" id="cuadre"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:20px">
+            <button class="btn btn--primary btn--sm" id="btnImprimirArqueo">Imprimir arqueo</button>
+            <button class="btn btn--ghost btn--sm" id="btnGuardarArqueo">Guardar cierre</button>
+          </div>
+          <div id="arqueosPrevios" style="margin-top:24px"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ AJUSTES ============ -->
+    <section id="secAjustes" class="hidden">
+      <div class="page-head">
+        <div>
+          <h1>Ajustes</h1>
+          <p>Datos del negocio, mesas y acceso del personal.</p>
+        </div>
+      </div>
+
+      <div class="cols cols--2">
+        <div class="card" style="padding:24px">
+          <h3 style="font-size:18px;font-weight:600;margin-bottom:16px">Mesas y códigos</h3>
+          <p class="dim" style="font-size:14px;margin:0 0 16px">Cada mesa tiene un código de cuatro caracteres. Imprímalo junto al número en el letrero de la mesa.</p>
+          <div class="tabla-wrap"><table class="tabla" id="tablaMesas"></table></div>
+          <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+            <button class="btn btn--ghost btn--sm" id="btnAgregarMesa">Agregar mesa</button>
+            <button class="btn btn--ghost btn--sm" id="btnImprimirMesas">Imprimir letreros</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="card" style="padding:24px;margin-bottom:20px">
+            <h3 style="font-size:18px;font-weight:600;margin-bottom:16px">Datos del negocio</h3>
+            <div class="field field--boxed"><label for="cfgNombre">Nombre</label><input id="cfgNombre"></div>
+            <div class="field field--boxed"><label for="cfgDireccion">Dirección</label><input id="cfgDireccion"></div>
+            <div class="field field--boxed"><label for="cfgTelefono">Teléfono</label><input id="cfgTelefono"></div>
+            <div class="field field--boxed"><label for="cfgCorreo">Correo</label><input id="cfgCorreo"></div>
+            <div class="field field--boxed"><label for="cfgHorario">Horario</label><input id="cfgHorario"></div>
+            <div class="field field--boxed"><label for="cfgWhats">Enlace de WhatsApp</label><input id="cfgWhats"></div>
+            <div class="field field--boxed"><label for="cfgIg">Instagram</label><input id="cfgIg"></div>
+            <div class="field field--boxed"><label for="cfgFb">Facebook</label><input id="cfgFb"></div>
+            <button class="btn btn--primary btn--sm" id="btnGuardarCfg">Guardar cambios</button>
+          </div>
+
+          <div class="card" style="padding:24px">
+            <h3 style="font-size:18px;font-weight:600;margin-bottom:16px">Acceso del personal</h3>
+            <div class="field field--boxed"><label for="pinNuevo">PIN nuevo</label><input id="pinNuevo" type="password" inputmode="numeric" maxlength="8"></div>
+            <div class="field field--boxed"><label for="pinConfirmar">Repita el PIN</label><input id="pinConfirmar" type="password" inputmode="numeric" maxlength="8"></div>
+            <button class="btn btn--primary btn--sm" id="btnCambiarPin">Cambiar PIN</button>
+            <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+            <h4 style="font-size:14px;margin-bottom:8px">Datos de demostración</h4>
+            <p class="dim" style="font-size:13px;margin:0 0 12px">Borra pedidos, ventas y arqueos, y deja el catálogo como salió de fábrica.</p>
+            <button class="btn btn--danger btn--sm" id="btnReiniciar">Reiniciar todo</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Área que se manda a la impresora -->
+<div id="areaImpresion"></div>
+
+<script src="js/store.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

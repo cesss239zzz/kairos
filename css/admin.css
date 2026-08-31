@@ -1,0 +1,215 @@
+/* ============================================================
+   KAIROS — admin.css (panel de administración)
+   ============================================================ */
+
+body.admin-body { background: var(--bg); }
+
+.layout { display: grid; grid-template-columns: 1fr; min-height: 100vh; }
+@media (min-width: 1000px) { .layout { grid-template-columns: 244px 1fr; } }
+
+/* ---------- Barra lateral ---------- */
+.side {
+  border-right: 1px solid var(--line);
+  background: var(--surface);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.side .logo { font-size: 20px; padding: 0 8px 24px; }
+.side__nav { display: flex; flex-direction: column; gap: 4px; }
+.side__nav button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  padding: 12px 14px;
+  color: var(--text-dim);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.side__nav button:hover { background: var(--surface-2); color: var(--text); }
+.side__nav button[aria-current="true"] {
+  background: var(--surface-3);
+  border-color: var(--line-soft);
+  color: var(--text);
+}
+.side__pie { margin-top: auto; border-top: 1px solid var(--line); padding-top: 16px; }
+.side__pie small { display: block; color: var(--text-mute); font-size: 12px; margin-bottom: 12px; }
+
+@media (max-width: 999px) {
+  .side { flex-direction: row; align-items: center; overflow-x: auto; padding: 12px; gap: 12px; border-right: none; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 80; }
+  .side .logo { padding: 0 8px 0 4px; }
+  .side__nav { flex-direction: row; gap: 6px; }
+  .side__nav button { white-space: nowrap; padding: 8px 12px; font-size: 14px; }
+  .side__pie { margin-top: 0; border-top: none; padding-top: 0; }
+  .side__pie small { display: none; }
+}
+
+/* ---------- Contenido ---------- */
+.main { padding: 28px 20px 64px; max-width: 1240px; }
+@media (min-width: 1000px) { .main { padding: 36px 40px 80px; } }
+
+.page-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
+.page-head h1 { font-size: 32px; font-weight: 600; letter-spacing: 0; }
+.page-head p { color: var(--text-dim); margin: 6px 0 0; }
+.page-head .acciones { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.cols { display: grid; gap: 20px; }
+.cols--2 { grid-template-columns: 1fr; }
+@media (min-width: 1000px) { .cols--2 { grid-template-columns: 1.6fr 1fr; } }
+.cols--auto { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
+/* ---------- Métricas ---------- */
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.kpi { padding: 20px; }
+.kpi small { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-mute); font-weight: 700; }
+.kpi strong { display: block; font-family: Montserrat, sans-serif; font-size: 28px; margin-top: 8px; }
+.kpi .sub { color: var(--text-dim); font-size: 13px; }
+.kpi--verde strong { color: var(--green); }
+.kpi--naranja strong { color: var(--orange); }
+
+/* ---------- Comandas ---------- */
+.tickets { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.comanda { padding: 0; overflow: hidden; display: flex; }
+.comanda__barra { width: 4px; flex: 0 0 4px; background: var(--orange); }
+.comanda--preparado .comanda__barra { background: var(--green); }
+.comanda--pagado .comanda__barra { background: var(--line-soft); }
+.comanda__cuerpo { padding: 18px; flex: 1; }
+.comanda__top { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 6px; }
+.comanda__top h3 { font-size: 18px; font-weight: 600; letter-spacing: 0; }
+.comanda__meta { color: var(--text-mute); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 14px; }
+.comanda ul { list-style: none; margin: 0 0 14px; padding: 0; }
+.comanda li { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; font-size: 14px; }
+.comanda li span:last-child { color: var(--text-mute); }
+.comanda__nota { background: var(--surface-2); border-radius: var(--r-sm); padding: 8px 10px; font-size: 13px; color: var(--text-dim); margin-bottom: 14px; }
+.comanda__acciones { display: flex; flex-wrap: wrap; gap: 8px; border-top: 1px solid var(--line); padding-top: 14px; }
+.comanda__total { font-weight: 700; color: var(--green); }
+
+/* ---------- Tablas ---------- */
+.tabla { width: 100%; border-collapse: collapse; font-size: 14px; }
+.tabla th {
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.tabla td { padding: 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.tabla tr:last-child td { border-bottom: none; }
+.tabla tbody tr:hover { background: rgba(255,255,255,.03); }
+.tabla .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tabla-wrap { overflow-x: auto; }
+
+/* ---------- Barras de ventas ---------- */
+.barras { display: flex; align-items: flex-end; gap: 10px; height: 180px; padding: 8px 0 0; }
+.barra { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 8px; height: 100%; }
+.barra i { display: block; width: 100%; background: var(--surface-3); border-radius: 2px 2px 0 0; min-height: 3px; }
+.barra--hoy i { background: var(--orange); box-shadow: var(--glow-orange); }
+.barra span { font-size: 11px; color: var(--text-mute); letter-spacing: .06em; text-transform: uppercase; }
+
+/* ---------- Caja ---------- */
+.caja { display: grid; gap: 20px; grid-template-columns: 1fr; }
+@media (min-width: 1000px) { .caja { grid-template-columns: 1fr 1.15fr; } }
+.caja__lista { padding: 8px; max-height: 620px; overflow-y: auto; }
+.caja__item {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  padding: 14px;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+.caja__item:hover { background: var(--surface-2); }
+.caja__item[aria-current="true"] { background: var(--surface-2); border-color: var(--orange); }
+.caja__item b { display: block; font-family: Montserrat, sans-serif; font-weight: 600; }
+.caja__item small { color: var(--text-mute); }
+.caja__panel { padding: 24px; }
+
+.metodos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 4px 0 20px; }
+.metodo {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-sm);
+  background: none;
+  color: var(--text-dim);
+  padding: 12px 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.metodo[aria-pressed="true"] { border-color: var(--orange); color: var(--orange); background: rgba(255,102,0,.08); }
+
+/* ---------- Productos ---------- */
+.prod-fila { display: flex; align-items: center; gap: 14px; }
+.prod-fila img { width: 56px; height: 56px; object-fit: cover; border-radius: var(--r-sm); border: 1px solid var(--line); }
+.prod-fila b { display: block; font-weight: 600; }
+.prod-fila small { color: var(--text-mute); }
+
+.cat-card { padding: 16px; display: flex; gap: 14px; align-items: center; }
+.cat-card img { width: 52px; height: 52px; object-fit: cover; border-radius: var(--r-sm); border: 1px solid var(--line); }
+.cat-card b { display: block; font-family: Montserrat, sans-serif; font-weight: 600; }
+.cat-card small { color: var(--text-mute); }
+.cat-card .acciones { margin-left: auto; display: flex; gap: 6px; }
+
+/* ---------- Arqueo ---------- */
+.arqueo { display: grid; gap: 20px; grid-template-columns: 1fr; }
+@media (min-width: 1000px) { .arqueo { grid-template-columns: 1fr 1fr; } }
+.arqueo__bloque { padding: 24px; }
+.arqueo__bloque h3 { font-size: 18px; font-weight: 600; letter-spacing: 0; margin-bottom: 4px; }
+.arqueo__bloque > p { color: var(--text-dim); font-size: 14px; margin: 0 0 20px; }
+.denoms { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 16px; }
+.denom { display: flex; align-items: center; gap: 10px; }
+.denom label { flex: 0 0 62px; color: var(--text-dim); font-size: 14px; font-variant-numeric: tabular-nums; }
+.denom input { width: 100%; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 8px 10px; text-align: right; }
+.denom input:focus { outline: none; border-color: var(--orange); }
+.denom em { flex: 0 0 96px; text-align: right; font-style: normal; color: var(--text-mute); font-size: 13px; font-variant-numeric: tabular-nums; }
+
+.cuadre { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 16px; }
+.cuadre div { display: flex; justify-content: space-between; padding: 6px 0; font-size: 15px; }
+.cuadre .dif { font-family: Montserrat, sans-serif; font-weight: 700; font-size: 18px; padding-top: 12px; }
+.cuadre .dif.ok span:last-child { color: var(--green); }
+.cuadre .dif.mal span:last-child { color: var(--red); }
+
+/* ---------- Impresión ---------- */
+.doc {
+  background: #fff;
+  color: #111;
+  padding: 28px;
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  line-height: 20px;
+  max-width: 460px;
+  margin: 0 auto;
+}
+.doc h2 { font-family: Montserrat, sans-serif; font-size: 20px; letter-spacing: .18em; text-align: center; margin: 0 0 4px; color: #111; }
+.doc .doc__sub { text-align: center; color: #555; margin-bottom: 18px; font-size: 12px; }
+.doc table { width: 100%; border-collapse: collapse; }
+.doc th, .doc td { padding: 5px 0; border-bottom: 1px dashed #ccc; text-align: left; }
+.doc td.num, .doc th.num { text-align: right; }
+.doc .doc__total { border-top: 2px solid #111; margin-top: 10px; padding-top: 10px; font-weight: 700; display: flex; justify-content: space-between; font-size: 16px; }
+.doc .doc__pie { margin-top: 20px; text-align: center; color: #555; font-size: 11px; }
+
+#areaImpresion { display: none; }
+
+@media print {
+  body.admin-body > *:not(#areaImpresion) { display: none !important; }
+  #areaImpresion { display: block !important; }
+  .toast-stack, .modal-backdrop { display: none !important; }
+  @page { margin: 12mm; }
+}

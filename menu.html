@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Menú digital · Kairos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/menu.css">
+</head>
+<body class="menu-body">
+
+<header class="mheader">
+  <div class="mheader__inner">
+    <a class="logo" href="index.html">KAIR<span>O</span>S</a>
+    <span class="mesa-tag hidden" id="mesaTag"></span>
+  </div>
+</header>
+
+<!-- Paso 1: identificar la mesa -->
+<section id="vistaGate" class="wrap gate">
+  <div class="gate__hero">
+    <h1>Su mesa, su menú</h1>
+    <p>Escriba el número de mesa y el código que aparece en el letrero. Así la cocina sabe exactamente a dónde llevar el pedido.</p>
+  </div>
+
+  <form class="card" id="formMesa" novalidate style="padding:24px">
+    <div class="field-row">
+      <div class="field field--boxed">
+        <label for="inMesa">Número de mesa</label>
+        <input id="inMesa" inputmode="numeric" autocomplete="off" placeholder="12">
+      </div>
+      <div class="field field--boxed">
+        <label for="inCodigo">Código de mesa</label>
+        <input id="inCodigo" autocomplete="off" maxlength="4" placeholder="A1B2" style="text-transform:uppercase">
+      </div>
+    </div>
+    <p id="gateError" class="hidden" style="color:var(--red);font-size:13px;margin:0 0 12px"></p>
+    <button class="btn btn--primary btn--block" type="submit">Abrir el menú</button>
+    <small class="hint">¿No encuentra el código? Pídalo al mesero. Cambia cuando la mesa se libera.</small>
+  </form>
+</section>
+
+<!-- Paso 2: el menú -->
+<section id="vistaMenu" class="hidden">
+  <div class="catbar" id="catbar" role="tablist" aria-label="Categorías del menú"></div>
+  <div class="wrap" id="listaPlatos"></div>
+</section>
+
+<!-- Paso 3: carrito -->
+<section id="vistaCarrito" class="wrap hidden">
+  <h2 class="panel-titulo">Su pedido</h2>
+  <div id="carritoContenido"></div>
+</section>
+
+<!-- Paso 4: pedidos en curso -->
+<section id="vistaPedidos" class="wrap hidden">
+  <h2 class="panel-titulo">En curso</h2>
+  <div id="pedidosContenido"></div>
+</section>
+
+<nav class="tabbar" id="tabbar" role="tablist">
+  <button data-vista="menu" role="tab" aria-selected="true"><span class="ico">☰</span>Menú</button>
+  <button data-vista="carrito" role="tab" aria-selected="false"><span class="ico">🛒<span class="badge hidden" id="badgeCarrito">0</span></span>Carrito</button>
+  <button data-vista="pedidos" role="tab" aria-selected="false"><span class="ico">⏱</span>En curso</button>
+  <button data-vista="salir" role="tab" aria-selected="false"><span class="ico">⎋</span>Cerrar mesa</button>
+</nav>
+
+<div class="footer" style="margin-bottom:0">
+  <div class="wrap center">
+    <span class="footer__legal">Kairos<span class="staff-dot" id="accesoPersonal" title="Personal"></span></span>
+  </div>
+</div>
+
+<script src="js/store.js"></script>
+<script src="js/acceso.js"></script>
+<script src="js/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 525" width="700" height="525" role="img" aria-label="Barra">
+<defs>
+<radialGradient id="g4" cx="50%" cy="42%" r="68%">
+<stop offset="0%" stop-color="#232121"/><stop offset="60%" stop-color="#111010"/><stop offset="100%" stop-color="#070707"/>
+</radialGradient>
+<radialGradient id="a4" cx="50%" cy="45%" r="45%">
+<stop offset="0%" stop-color="#ff3fa4" stop-opacity=".30"/><stop offset="100%" stop-color="#ff3fa4" stop-opacity="0"/>
+</radialGradient>
+<filter id="b4"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>
+<rect width="700" height="525" fill="url(#g4)"/>
+<ellipse cx="350" cy="242" rx="294" ry="220" fill="url(#a4)"/>
+<ellipse cx="350" cy="304" rx="197" ry="66" fill="#000" opacity=".55" filter="url(#b4)"/>
+<ellipse cx="350" cy="273" rx="181" ry="123" fill="#1b1a1a" stroke="#2f2e2e" stroke-width="2"/>
+<ellipse cx="350" cy="273" rx="126" ry="85" fill="#141313" stroke="#3a3939" stroke-width="1"/>
+<ellipse cx="331" cy="308" rx="21" ry="9" fill="#ff3fa4" opacity=".9" transform="rotate(5 331 308)"/>
+<ellipse cx="292" cy="299" rx="16" ry="15" fill="#4a4746" opacity=".9" transform="rotate(70 292 299)"/>
+<ellipse cx="362" cy="232" rx="15" ry="20" fill="#5d5957" opacity=".9" transform="rotate(164 362 232)"/>
+<ellipse cx="372" cy="235" rx="14" ry="12" fill="#4a4746" opacity=".9" transform="rotate(95 372 235)"/>
+<ellipse cx="394" cy="290" rx="25" ry="14" fill="#ff3fa4" opacity=".9" transform="rotate(45 394 290)"/>
+<ellipse cx="351" cy="292" rx="28" ry="8" fill="#332f2e" opacity=".9" transform="rotate(74 351 292)"/>
+<ellipse cx="288" cy="254" rx="15" ry="13" fill="#332f2e" opacity=".9" transform="rotate(73 288 254)"/>
+<ellipse cx="329" cy="279" rx="16" ry="18" fill="#5d5957" opacity=".9" transform="rotate(20 329 279)"/>
+<path d="M 169 273 a 181 123 0 0 1 362 0" fill="none" stroke="#ff3fa4" stroke-opacity=".35" stroke-width="1.5"/>
+<text x="684" y="511" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="15" letter-spacing="2" fill="#6b6a6a">BARRA</text>
+</svg>

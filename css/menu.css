@@ -1,0 +1,150 @@
+/* ============================================================
+   KAIROS — menu.css (menú digital del cliente, mobile-first)
+   ============================================================ */
+
+body.menu-body { padding-bottom: 84px; background: var(--bg); }
+
+.mheader {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: rgba(10, 10, 10, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.mheader__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.mheader .logo { font-size: 18px; }
+.mesa-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line-soft);
+  border-radius: 2px;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.mesa-tag b { color: var(--text); }
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+
+/* ---------- Pantalla de acceso a la mesa ---------- */
+.gate { padding: 40px 0 24px; }
+.gate__hero {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: linear-gradient(150deg, rgba(255,102,0,.12), transparent 55%), var(--surface-1);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+.gate__hero h1 { font-size: 30px; line-height: 36px; margin-bottom: 10px; }
+.gate__hero p { color: var(--text-dim); margin: 0; }
+.gate .card { padding: 24px; }
+.gate small.hint { display: block; color: var(--text-mute); font-size: 13px; margin-top: 10px; }
+
+/* ---------- Categorías ---------- */
+.catbar {
+  position: sticky;
+  top: 62px;
+  z-index: 50;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 12px 16px;
+  background: rgba(10, 10, 10, 0.94);
+  backdrop-filter: blur(10px);
+  scrollbar-width: none;
+}
+.catbar::-webkit-scrollbar { display: none; }
+.catbtn {
+  flex: 0 0 auto;
+  border: 1px solid var(--line-soft);
+  background: transparent;
+  color: var(--text-dim);
+  border-radius: var(--r-full);
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color .15s ease, border-color .15s ease;
+}
+.catbtn[aria-selected="true"] { color: var(--orange); border-color: var(--orange); }
+
+/* ---------- Tarjetas de producto ---------- */
+.dish { margin-bottom: 16px; overflow: hidden; }
+.dish__img { position: relative; }
+.dish__img img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; filter: saturate(.8); }
+.dish__flag { position: absolute; top: 12px; right: 12px; }
+.dish__body { padding: 16px; }
+.dish__top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.dish__top h3 { font-size: 17px; font-weight: 600; letter-spacing: 0; font-family: Montserrat, sans-serif; }
+.dish__price { color: var(--green); font-weight: 700; white-space: nowrap; }
+.dish p { color: var(--text-dim); font-size: 14px; line-height: 21px; margin: 8px 0 16px; }
+.dish .btn { width: 100%; }
+.dish--agotado { opacity: .5; }
+
+.grupo-titulo { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-mute); margin: 28px 0 12px; font-weight: 700; }
+
+/* ---------- Barra inferior ---------- */
+.tabbar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 70;
+  display: flex;
+  background: rgba(14, 14, 14, .97);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--line);
+}
+.tabbar button {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 12px 4px calc(12px + env(safe-area-inset-bottom));
+  color: var(--text-mute);
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.tabbar button[aria-selected="true"] { color: var(--orange); }
+.tabbar .ico { font-size: 18px; line-height: 18px; }
+.badge {
+  position: absolute;
+  transform: translate(14px, -6px);
+  background: var(--orange);
+  color: #000;
+  border-radius: var(--r-full);
+  font-size: 10px;
+  min-width: 17px;
+  height: 17px;
+  line-height: 17px;
+  text-align: center;
+  padding: 0 4px;
+}
+
+/* ---------- Mis pedidos ---------- */
+.ticket { padding: 18px; margin-bottom: 14px; }
+.ticket__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+.ticket__head h3 { font-size: 16px; font-weight: 600; letter-spacing: 0; }
+.ticket ul { list-style: none; margin: 0; padding: 0; }
+.ticket li { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; color: var(--text-dim); font-size: 14px; }
+.ticket li b { color: var(--text); font-weight: 500; }
+.ticket__pie { display: flex; justify-content: space-between; border-top: 1px solid var(--line); margin-top: 10px; padding-top: 12px; font-weight: 700; }
+
+.vacio { text-align: center; padding: 56px 20px; color: var(--text-mute); }
+.vacio strong { display: block; color: var(--text); font-family: Montserrat, sans-serif; font-size: 18px; margin-bottom: 6px; }
+
+.panel-titulo { font-size: 24px; font-weight: 600; margin: 24px 0 16px; }

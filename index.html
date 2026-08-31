@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kairos · Cocina de autor y coctelería nocturna</title>
+<meta name="description" content="Kairos: cocina de autor, parrilla y coctelería en La Entrada, Copán. Reserve su mesa o pida desde su teléfono con el menú digital.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav__inner">
+    <a class="logo" href="index.html">KAIR<span>O</span>S</a>
+    <nav class="nav__links">
+      <a href="#lugar">El lugar</a>
+      <a href="#menu">Menú</a>
+      <a href="#ubicacion">Ubicación</a>
+      <a href="#reservaciones">Reservaciones</a>
+      <a href="#redes">Redes</a>
+    </nav>
+    <div class="nav__cta">
+      <a class="btn btn--primary btn--sm" href="menu.html">Pedir en mesa</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div>
+        <p class="hero__status"><span class="dot"></span> Abierto para reservaciones</p>
+        <h1>Cocina de autor<br>bajo luz <em>tenue</em>.</h1>
+        <p>Parrilla de leña, producto del día y una barra que trabaja hasta tarde. En el corazón de La Entrada, Copán.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#reservaciones">Reservar mesa</a>
+          <a class="btn btn--ghost" href="menu.html">Ver el menú</a>
+        </div>
+      </div>
+      <div class="hero__gallery">
+        <div class="shot shot--wide"><img src="assets/img/hero-plato.svg" alt="Plato de la carta de Kairos"></div>
+        <div class="shot shot--sq"><img src="assets/img/hero-coctel.svg" alt="Coctelería de la barra de Kairos"></div>
+        <div class="hero__tile">
+          <strong>Menú de temporada</strong>
+          <span class="rule"></span>
+          <small class="dim">Siete tiempos, jueves y viernes</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EL LUGAR -->
+  <section class="section" id="lugar">
+    <div class="container">
+      <div class="section__head">
+        <h2>El lugar</h2>
+        <p>Tres ambientes en una sola casa: el salón principal para cenas largas, la barra para la noche y la terraza para las mesas que prefieren el aire fresco.</p>
+      </div>
+      <div class="place">
+        <figure>
+          <img src="assets/img/lugar-salon.svg" alt="Salón principal de Kairos">
+          <figcaption>Salón principal <small>40 comensales · reservable completo</small></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/lugar-barra.svg" alt="Barra de Kairos">
+          <figcaption>La barra <small>Coctelería de autor hasta las 11:00 p. m.</small></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/lugar-terraza.svg" alt="Terraza de Kairos">
+          <figcaption>Terraza <small>Ocho mesas · admite mascotas</small></figcaption>
+        </figure>
+      </div>
+      <p class="dim" style="margin-top:16px;font-size:13px">Las fotografías son de referencia, generadas con IA, mientras se realiza la sesión fotográfica del local.</p>
+    </div>
+  </section>
+
+  <!-- MENÚ DESTACADO -->
+  <section class="section" id="menu">
+    <div class="container">
+      <div class="section__head">
+        <h2>De la carta</h2>
+        <p>Una muestra de lo que sale de la cocina esta temporada. La carta completa, con precios y fotos, vive en el menú digital.</p>
+      </div>
+      <div class="picks" id="picks"></div>
+      <div style="margin-top:28px">
+        <a class="btn btn--ghost" href="menu.html">Abrir el menú digital</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PEDIDOS -->
+  <section class="section" id="pedir">
+    <div class="container">
+      <div class="order-strip">
+        <div>
+          <h2>Pida desde su mesa</h2>
+          <p>Escanee el código QR de la mesa o entre al menú digital, escriba el número de mesa y su código, y arme su pedido. La cocina lo recibe al instante y usted sigue el estado desde su teléfono.</p>
+        </div>
+        <a class="btn btn--primary" href="menu.html">Hacer mi pedido</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- UBICACIÓN -->
+  <section class="section" id="ubicacion">
+    <div class="container">
+      <div class="section__head">
+        <h2>Cómo llegar</h2>
+        <p>Estamos sobre la calle principal, a media cuadra del parque central. Hay parqueo propio para diez vehículos.</p>
+      </div>
+      <div class="location">
+        <div class="card location__data">
+          <div class="location__row"><div><strong>Dirección</strong><span id="dirTexto">Barrio El Centro, La Entrada, Copán, Honduras</span></div></div>
+          <div class="location__row"><div><strong>Horario</strong><span id="horarioTexto">Martes a domingo · 12:00 – 23:00</span></div></div>
+          <div class="location__row"><div><strong>Teléfono</strong><span id="telTexto">+504 0000-0000</span></div></div>
+          <div class="location__row"><div><strong>Correo</strong><span id="correoTexto">hola@kairos.hn</span></div></div>
+          <div class="location__row"><div><strong>Parqueo</strong><span>Propio, sin costo, con vigilancia hasta el cierre</span></div></div>
+          <div style="margin-top:20px">
+            <a class="btn btn--ghost btn--sm" id="btnMapa" href="https://www.google.com/maps/search/La+Entrada+Cop%C3%A1n" target="_blank" rel="noopener">Abrir en Google Maps</a>
+          </div>
+        </div>
+        <div class="map-frame">
+          <iframe
+            title="Mapa de ubicación de Kairos"
+            src="https://www.google.com/maps?q=La%20Entrada%2C%20Cop%C3%A1n%2C%20Honduras&output=embed"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVACIONES -->
+  <section class="section" id="reservaciones">
+    <div class="container">
+      <div class="section__head">
+        <h2>Reservaciones</h2>
+        <p>Reservamos con dos horas de anticipación. Para grupos de más de ocho personas escríbanos por WhatsApp y le confirmamos disponibilidad del salón.</p>
+      </div>
+      <div class="reserve">
+        <form class="card reserve__form" id="formReserva" novalidate>
+          <div class="field-row">
+            <div class="field"><label for="rNombre">Nombre</label><input id="rNombre" name="nombre" required placeholder="Su nombre completo"></div>
+            <div class="field"><label for="rTel">Teléfono</label><input id="rTel" name="telefono" required placeholder="9999-9999"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="rFecha">Fecha</label><input id="rFecha" name="fecha" type="date" required></div>
+            <div class="field"><label for="rHora">Hora</label><input id="rHora" name="hora" type="time" required value="19:00"></div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="rPersonas">Personas</label>
+              <select id="rPersonas" name="personas">
+                <option>1</option><option>2</option><option selected>3</option><option>4</option>
+                <option>5</option><option>6</option><option>7</option><option>8</option><option>Más de 8</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="rAmbiente">Ambiente</label>
+              <select id="rAmbiente" name="ambiente">
+                <option>Salón principal</option><option>Barra</option><option>Terraza</option><option>Sin preferencia</option>
+              </select>
+            </div>
+          </div>
+          <div class="field"><label for="rNota">Ocasión o comentarios</label><textarea id="rNota" name="nota" placeholder="Cumpleaños, alergias, silla para niño…"></textarea></div>
+          <button class="btn btn--primary btn--block" type="submit">Enviar solicitud</button>
+          <p class="dim" style="font-size:13px;margin-top:12px">Le confirmamos por WhatsApp. La reservación se guarda 15 minutos después de la hora acordada.</p>
+        </form>
+        <aside class="card reserve__aside">
+          <div>
+            <h3 style="font-size:20px;font-weight:600">Antes de venir</h3>
+            <ul style="padding-left:18px;margin:12px 0 0">
+              <li>Cocina cierra a las 22:30; la barra sigue hasta las 23:00.</li>
+              <li>Los jueves y viernes hay menú de temporada de siete tiempos.</li>
+              <li>Aceptamos efectivo, tarjeta y transferencia.</li>
+              <li>Grupos grandes: pedimos el menú con un día de anticipación.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="eyebrow">Reservas rápidas</p>
+            <p class="muted" style="margin:8px 0 16px">Si prefiere hablar con alguien, escríbanos directo.</p>
+            <a class="btn btn--green btn--sm" id="btnWhats" href="https://wa.me/504" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- REDES -->
+  <section class="section" id="redes">
+    <div class="container">
+      <div class="section__head">
+        <h2>Síganos</h2>
+        <p>Publicamos el plato del día, la agenda de música en vivo y los cierres por evento privado.</p>
+      </div>
+      <div class="social">
+        <a id="lnkIg" href="https://instagram.com/" target="_blank" rel="noopener"><span><strong>Instagram</strong><small>@kairos.hn</small></span><span class="arrow">↗</span></a>
+        <a id="lnkFb" href="https://facebook.com/" target="_blank" rel="noopener"><span><strong>Facebook</strong><small>Kairos Restaurante</small></span><span class="arrow">↗</span></a>
+        <a id="lnkTk" href="https://tiktok.com/" target="_blank" rel="noopener"><span><strong>TikTok</strong><small>@kairos.hn</small></span><span class="arrow">↗</span></a>
+        <a id="lnkWa" href="https://wa.me/504" target="_blank" rel="noopener"><span><strong>WhatsApp</strong><small>Reservas y pedidos</small></span><span class="arrow">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="logo">KAIR<span>O</span>S<span class="staff-dot" id="accesoPersonal" title="Personal"></span></div>
+    <nav class="footer__links">
+      <a href="#lugar">El lugar</a>
+      <a href="menu.html">Menú digital</a>
+      <a href="#ubicacion">Ubicación</a>
+      <a href="#reservaciones">Reservaciones</a>
+    </nav>
+    <p class="footer__legal">© <span id="anio"></span> Kairos · La Entrada, Copán</p>
+  </div>
+</footer>
+
+<script src="js/store.js"></script>
+<script src="js/acceso.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
