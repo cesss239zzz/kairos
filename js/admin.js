@@ -505,7 +505,7 @@
     $("listaCategorias").innerHTML = d.categorias.slice().sort((a, b) => a.orden - b.orden).map(c => {
       const n = d.productos.filter(p => p.categoriaId === c.id).length;
       return `<div class="card cat-card">
-        <img src="${esc(c.imagen || "assets/img/plato-01.svg")}" alt="">
+        <img src="${esc(c.imagen || Kairos.IMAGEN_POR_DEFECTO)}" alt="">
         <div><b>${esc(c.nombre)}</b><small>${n} producto${n === 1 ? "" : "s"}</small></div>
         <div class="acciones">
           <button class="btn btn--sm btn--ghost" data-cat-edit="${c.id}">Editar</button>
@@ -521,7 +521,7 @@
         return `<tr>
           <td>
             <div class="prod-fila">
-              <img src="${esc(p.imagen || "assets/img/plato-01.svg")}" alt="">
+              <img src="${esc(p.imagen || Kairos.IMAGEN_POR_DEFECTO)}" alt="">
               <span><b>${esc(p.nombre)}</b><small>${esc((p.descripcion || "").slice(0, 60))}</small></span>
             </div>
           </td>
@@ -547,8 +547,10 @@
 
   function editorProducto(id) {
     const d = Kairos.db();
-    const p = id ? d.productos.find(x => x.id === id) : { nombre: "", categoriaId: d.categorias[0]?.id, precio: 0, descripcion: "", imagen: "assets/img/plato-01.svg", disponible: true };
+    const p = id ? d.productos.find(x => x.id === id) : { nombre: "", categoriaId: d.categorias[0]?.id, precio: 0, descripcion: "", imagen: Kairos.IMAGEN_POR_DEFECTO, disponible: true };
     let imagen = p.imagen;
+    // Mientras no suban una foto, la ilustración sigue al nombre del platillo.
+    let ilustracionAuto = Kairos.esIlustracion(imagen);
 
     const back = document.createElement("div");
     back.className = "modal-backdrop";
@@ -561,7 +563,8 @@
           <div>
             <input type="file" id="pvFile" accept="image/*" style="display:none">
             <button class="btn btn--ghost btn--sm" id="pvSubir" type="button">Subir foto</button>
-            <p class="dim" style="font-size:12px;margin:8px 0 0">JPG o PNG. Se reduce sola para no pesar.</p>
+            <button class="btn btn--ghost btn--sm" id="pvIlustrar" type="button">Usar ilustración</button>
+            <p class="dim" style="font-size:12px;margin:8px 0 0">JPG o PNG. Se reduce sola para no pesar.<br>Sin foto, el plato toma la ilustración que corresponde a su nombre.</p>
           </div>
         </div>
         <div class="field field--boxed"><label for="pvNombre">Nombre</label><input id="pvNombre" value="${esc(p.nombre)}"></div>
@@ -583,14 +586,32 @@
       </div>`;
     document.body.appendChild(back);
 
+    // La ilustración se recalcula con lo que se va escribiendo.
+    const nombreCategoria = (idCat) => (d.categorias.find(c => c.id === idCat) || {}).nombre;
+    function refrescarIlustracion() {
+      if (!ilustracionAuto) return;
+      imagen = Kairos.imagenPara(back.querySelector("#pvNombre").value,
+                                 nombreCategoria(back.querySelector("#pvCat").value));
+      back.querySelector("#pvImg").src = imagen;
+    }
+    back.querySelector("#pvNombre").addEventListener("input", refrescarIlustracion);
+    back.querySelector("#pvCat").addEventListener("change", refrescarIlustracion);
+    if (!id) refrescarIlustracion();
+
     back.querySelector("#pvSubir").onclick = () => back.querySelector("#pvFile").click();
     back.querySelector("#pvFile").onchange = (e) => {
       const file = e.target.files[0];
       if (!file) return;
       comprimirImagen(file, (dataUrl) => {
         imagen = dataUrl;
+        ilustracionAuto = false;
         back.querySelector("#pvImg").src = dataUrl;
       });
+    };
+    back.querySelector("#pvIlustrar").onclick = () => {
+      ilustracionAuto = true;
+      refrescarIlustracion();
+      aviso("Ilustración tomada del nombre del platillo.");
     };
     back.querySelector("#pvCancelar").onclick = () => back.remove();
     back.querySelector("#pvGuardar").onclick = () => {
@@ -614,8 +635,9 @@
 
   function editorCategoria(id) {
     const d = Kairos.db();
-    const c = id ? d.categorias.find(x => x.id === id) : { nombre: "", imagen: "assets/img/plato-01.svg", orden: d.categorias.length + 1 };
+    const c = id ? d.categorias.find(x => x.id === id) : { nombre: "", imagen: Kairos.IMAGEN_POR_DEFECTO, orden: d.categorias.length + 1 };
     let imagen = c.imagen;
+    let ilustracionAuto = Kairos.esIlustracion(imagen);
 
     const back = document.createElement("div");
     back.className = "modal-backdrop";
@@ -638,10 +660,16 @@
       </div>`;
     document.body.appendChild(back);
 
+    back.querySelector("#cvNombre").addEventListener("input", (e) => {
+      if (!ilustracionAuto) return;
+      imagen = Kairos.imagenPara(e.target.value, e.target.value);
+      back.querySelector("#cvImg").src = imagen;
+    });
+
     back.querySelector("#cvSubir").onclick = () => back.querySelector("#cvFile").click();
     back.querySelector("#cvFile").onchange = (e) => {
       const f = e.target.files[0];
-      if (f) comprimirImagen(f, (u) => { imagen = u; back.querySelector("#cvImg").src = u; });
+      if (f) comprimirImagen(f, (u) => { imagen = u; ilustracionAuto = false; back.querySelector("#cvImg").src = u; });
     };
     back.querySelector("#cvCancelar").onclick = () => back.remove();
     back.querySelector("#cvGuardar").onclick = () => {
