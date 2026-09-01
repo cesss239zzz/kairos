@@ -69,6 +69,28 @@ Si cuadra, imprime el arqueo con espacio para las dos firmas.
 El total de ventas incluye propinas, porque es el dinero que realmente entró y es lo que se
 compara contra el conteo físico.
 
+## Al subir una versión nueva
+
+Los navegadores guardan el `.js`, el `.css` y las imágenes por su nombre, así que un
+cliente que ya visitó el sitio puede seguir viendo la versión vieja aunque recargue.
+Por eso los archivos propios se piden con un sello de versión:
+
+```html
+<script src="js/store.js?v=2"></script>
+```
+
+**Cuando cambie algo de `js/`, `css/` o de las imágenes fijas, suba el número del sello**
+(`?v=2` → `?v=3`) en `index.html`, `menu.html` y `admin.html`. Con eso el navegador
+entiende que es un archivo distinto y lo baja de nuevo.
+
+Si a usted mismo no le aparece el cambio después de subirlo:
+
+1. Compruebe que los archivos llegaron al hosting: abra
+   `su-sitio.com/assets/img/platos/mojito.svg` en el navegador. Si sale el vaso de mojito,
+   están subidos; si sale «no encontrado», falta subirlos.
+2. Recargue saltándose lo guardado: **Ctrl + Shift + R** (Windows) o **Cmd + Shift + R**
+   (Mac). En el teléfono, abra el sitio en una pestaña privada.
+
 ## Nota importante sobre los datos
 
 Todo se guarda en el `localStorage` del navegador. Eso significa que **el pedido que hace un

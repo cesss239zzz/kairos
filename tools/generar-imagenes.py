@@ -1095,6 +1095,39 @@ PORTADAS = [
 ]
 
 
+# ---------------------------------------------------------------- compatibilidad
+
+# Los navegadores que ya visitaron el sitio guardan el store.js viejo, que pide
+# assets/img/plato-NN.svg. Si esos archivos no existen, la carta se ve con los
+# huecos de las imágenes hasta que al navegador se le venza la copia guardada.
+# Así que cada ruta vieja sigue viva, pero ahora con la ilustración que le toca:
+# el cliente ve comida de inmediato y, cuando el navegador baje el código nuevo,
+# la migración lo pasa solo a assets/img/platos/.
+COMPATIBILIDAD = [
+    ("plato-01.svg", "tabla-kairos.svg"),        # Tabla Kairos y respaldo general
+    ("plato-02.svg", "ceviche.svg"),             # Ceviche de la casa
+    ("plato-03.svg", "camarones-al-ajillo.svg"), # Camarones al ajillo · Del mar
+    ("plato-04.svg", "mojito.svg"),              # Mojito de la casa · Cócteles
+    ("plato-05.svg", "lomo-de-res.svg"),         # Lomo de res · Parrilla
+    ("plato-06.svg", "alitas-ahumadas.svg"),     # Alitas ahumadas
+    ("plato-07.svg", "pasta-al-pesto.svg"),      # Pasta al pesto · Pastas
+    ("plato-08.svg", "costilla-braseada.svg"),   # Costilla braseada
+    ("plato-09.svg", "volcan-de-chocolate.svg"), # Volcán de chocolate · Postres
+    ("plato-10.svg", "filete-de-pescado.svg"),   # Filete de pescado
+    ("plato-11.svg", "fettuccine-alfredo.svg"),  # Fettuccine Alfredo · Bebidas
+    ("plato-12.svg", "pollo-a-la-brasa.svg"),    # Pollo a la brasa
+]
+
+
+def escribir_compatibilidad():
+    for viejo, nuevo in COMPATIBILIDAD:
+        with open(os.path.join(PLATOS, nuevo), encoding="utf-8") as f:
+            svg = f.read()
+        destino = os.path.join(IMG, viejo)
+        with open(destino, "w", encoding="utf-8") as f:
+            f.write(svg)
+        print("assets/img/%s  (copia de platos/%s)" % (viejo, nuevo))
+
 def main():
     os.makedirs(PLATOS, exist_ok=True)
     for slug, alt, acento, dibujo in CARTA:
@@ -1105,7 +1138,9 @@ def main():
         d, b = dibujo()
         escribir(os.path.join(IMG, nombre), alt, acento, d, b, w=w, h=h, s=s)
         print("assets/img/%s" % nombre)
-    print("\n%d ilustraciones generadas." % (len(CARTA) + len(PORTADAS)))
+    escribir_compatibilidad()
+    print("\n%d ilustraciones generadas (%d de ellas, copias para el caché viejo)."
+          % (len(CARTA) + len(PORTADAS) + len(COMPATIBILIDAD), len(COMPATIBILIDAD)))
 
 
 if __name__ == "__main__":
