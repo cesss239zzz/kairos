@@ -1,19 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" width="720" height="720" role="img" aria-label="Coctelería de la barra de Kairos">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="640" height="480" role="img" aria-label="Old Fashioned">
 <defs>
 <radialGradient id="kbg" cx="50%" cy="40%" r="76%">
 <stop offset="0%" stop-color="#262322"/><stop offset="54%" stop-color="#121111"/><stop offset="100%" stop-color="#060606"/>
 </radialGradient>
 <radialGradient id="kglow" cx="50%" cy="46%" r="52%">
-<stop offset="0%" stop-color="#ff3fa4" stop-opacity=".28"/><stop offset="100%" stop-color="#ff3fa4" stop-opacity="0"/>
+<stop offset="0%" stop-color="#ff6600" stop-opacity=".28"/><stop offset="100%" stop-color="#ff6600" stop-opacity="0"/>
 </radialGradient>
-<filter id="kblur" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="10.4"/></filter>
-<filter id="ksoft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3.9"/></filter>
+<filter id="kblur" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="ksoft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3.0"/></filter>
 <linearGradient id="vof" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.22"/><stop offset="22%" stop-color="#ffffff" stop-opacity="0.05"/><stop offset="55%" stop-color="#ffffff" stop-opacity="0.03"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0.14"/></linearGradient><linearGradient id="whi" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#f0a63a"/><stop offset="45%" stop-color="#c06a12"/><stop offset="100%" stop-color="#8a3f07"/></linearGradient><clipPath id="cof"><path d="M 226.0 194.0 L 238.0 362.0 Q 320.0 382.0 402.0 362.0 L 414.0 194.0 Z"/></clipPath>
 </defs>
-<rect width="720" height="720" fill="url(#kbg)"/>
-<ellipse cx="360.0" cy="331.2" rx="338.4" ry="331.2" fill="url(#kglow)"/>
-<g transform="translate(-56.00 48.00) scale(1.3000)">
+<rect width="640" height="480" fill="url(#kbg)"/>
+<ellipse cx="320.0" cy="220.8" rx="300.8" ry="220.8" fill="url(#kglow)"/>
+<g transform="translate(0.00 0.00) scale(1.0000)">
 <ellipse cx="320.0" cy="386.0" rx="123.0" ry="15.0" fill="#000" opacity="0.55" filter="url(#kblur)"/><path d="M 226.0 194.0 L 238.0 362.0 Q 320.0 382.0 402.0 362.0 L 414.0 194.0 Z" fill="url(#vof)" stroke="#d3dadc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/><path d="M 236.0 326.0 Q 320.0 338.0 404.0 326.0 L 402.0 362.0 Q 320.0 382.0 238.0 362.0 Z" fill="#ffffff" opacity="0.07"/><g clip-path="url(#cof)"><rect x="222" y="240" width="196" height="146" fill="url(#whi)"/><path d="M 226 246 q 94 22 190 -4 l 0 12 q -96 26 -190 4 Z" fill="#ffd08a" opacity="0.35"/><g transform="rotate(-8 322 286)"><rect x="274" y="234" width="98" height="94" rx="12" fill="#ffffff" fill-opacity=".30" stroke="#ffffff" stroke-opacity=".72" stroke-width="2"/><path d="M 290 256 l 32 28 l -18 30" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><path d="M 350 252 l -20 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/></g><ellipse cx="320.0" cy="240.0" rx="92.0" ry="17.0" fill="#e59a30" opacity="0.9"/><ellipse cx="316.0" cy="238.0" rx="44.0" ry="8.0" fill="#ffd9a3" opacity="0.4"/></g><ellipse cx="320.0" cy="194.0" rx="94.0" ry="19.7" fill="#0d1012" opacity="0.35" stroke="#e2e9eb" stroke-width="2"/><path d="M 230.0 194.0 a 90.0 17.7 0 0 0 180.0 0" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/><path d="M 254.2 183.1 a 65.8 19.7 0 0 1 65.8 0" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.28"/><path d="M 352 216 q 44 -12 52 20 q 6 28 -24 34 q -24 4 -30 -16 q -4 -18 16 -22 q 16 -2 12 12" fill="none" stroke="#f08a1e" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/><path d="M 352 216 q 44 -12 52 20 q 6 28 -24 34" fill="none" stroke="#ffd9a3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/><ellipse cx="266.0" cy="224.0" rx="17.0" ry="16.0" fill="#a01530" stroke="#5e0a1c" stroke-width="1.2"/><ellipse cx="261.0" cy="219.0" rx="5.0" ry="4.0" fill="#ff7d94" opacity="0.65"/><path d="M 266 210 q 6 -24 24 -28" fill="none" stroke="#4f7c2c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<text x="704" y="706" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="14" letter-spacing="2" fill="#6b6a6a">KAIROS</text>
+<text x="624" y="466" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="13" letter-spacing="2" fill="#6b6a6a">KAIROS</text>
 </svg>

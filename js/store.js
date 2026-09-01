@@ -6,6 +6,7 @@
 
 const Kairos = (function () {
   const DB_KEY = "kairos.db.v1";
+  const VERSION_DB = 2;
   const SESSION_KEY = "kairos.sesion.v1";
   const PIN_POR_DEFECTO = "2580";
 
@@ -67,47 +68,150 @@ const Kairos = (function () {
     return sha256("kairos-mesa-" + n).slice(0, 4).toUpperCase();
   }
 
+  /* ---------- Ilustraciones de la carta ----------
+     Cada platillo recibe su dibujo según el nombre: se normaliza el texto y se
+     busca la primera palabra clave que calce. Si el nombre no dice nada, se cae
+     a la ilustración de la categoría y, en último caso, al plato genérico.
+     Las láminas viven en assets/img/platos/ y las genera tools/generar-imagenes.py
+     Una foto real subida desde el panel (data:image/...) siempre manda sobre esto. */
+  const RUTA_ARTE = "assets/img/platos/";
+  const IMAGEN_POR_DEFECTO = RUTA_ARTE + "plato-generico.svg";
+
+  // El orden importa: lo más específico va primero.
+  const ARTE_PLATO = [
+    ["ceviche",             ["ceviche", "cebiche", "tiradito"]],
+    ["alitas-ahumadas",     ["alita", "wing", "boneless"]],
+    ["tabla-kairos",        ["tabla", "picada", "charcuter", "queso", "embutido", "jamon", "salami"]],
+    ["camarones-al-ajillo", ["camaron", "gambas", "ajillo", "langostino", "marisco"]],
+    ["filete-de-pescado",   ["pescado", "corvina", "tilapia", "robalo", "mojarra", "salmon", "atun"]],
+    ["costilla-braseada",   ["costilla", "rib", "chuleta"]],
+    ["lomo-de-res",         ["lomo", "res", "churrasco", "bistec", "steak", "corte", "ribeye", "asado", "carne"]],
+    ["pollo-a-la-brasa",    ["pollo", "gallina", "pechuga"]],
+    ["pasta-al-pesto",      ["pesto", "albahaca"]],
+    ["fettuccine-alfredo",  ["fettuccine", "alfredo", "pasta", "spaghetti", "espagueti", "linguini", "lasa", "macarron", "ravioli"]],
+    ["volcan-de-chocolate", ["chocolate", "volcan", "brownie", "lava"]],
+    ["tres-leches",         ["tres leches", "pastel", "torta", "cheesecake", "flan", "postre", "helado", "bizcocho"]],
+    ["limonada",            ["limonada", "naranjada", "jugo", "batido", "licuado", "horchata",
+                             "te de", "te helado", "te verde", "fresco natural"]],
+    ["michelada",           ["michelada", "chelada"]],
+    ["cerveza",             ["cerveza", "birra", "lager", "porron", "barril"]],
+    ["mojito",              ["mojito", "daiquiri", "caipirinha", "menta"]],
+    ["old-fashioned",       ["old fashioned", "whisky", "whiskey", "negroni", "manhattan", "ron", "coctel", "trago", "licor"]],
+    ["vino",                ["vino", "tinto", "sangria", "copa de"]],
+    ["cafe",                ["cafe", "capuchino", "espresso", "americano", "latte", "moca"]],
+    ["ensalada",            ["ensalada", "cesar", "aguacate", "guacamole"]],
+    ["gaseosa-agua",        ["gaseosa", "agua", "soda", "refresco", "botella", "cola"]],
+    ["hamburguesa",         ["hamburgues", "burger", "sandwich", "emparedado", "club"]],
+    ["tacos",               ["taco", "burrito", "quesadilla", "baleada", "tortilla", "enchilada"]],
+    ["pizza",               ["pizza", "calzone"]],
+    ["sopa",                ["sopa", "caldo", "crema de", "consome", "chuleton"]]
+  ];
+
+  // Respaldo por categoría cuando el nombre del plato no dice nada.
+  const ARTE_CATEGORIA = [
+    ["camarones-al-ajillo", ["mar", "marisco", "pescad"]],
+    ["tabla-kairos",        ["entrada", "picada", "boca", "aperitivo", "para compartir"]],
+    ["lomo-de-res",         ["parrilla", "carne", "asado", "plato fuerte"]],
+    ["fettuccine-alfredo",  ["pasta"]],
+    ["volcan-de-chocolate", ["postre", "dulce"]],
+    ["mojito",              ["coctel", "bar", "trago", "licor"]],
+    ["cerveza",             ["cerveza"]],
+    ["limonada",            ["bebida", "refresco", "jugo", "sin alcohol"]],
+    ["pizza",               ["pizza"]],
+    ["hamburguesa",         ["hamburgues", "sandwich", "burger"]],
+    ["ensalada",            ["ensalada", "saludable"]],
+    ["sopa",                ["sopa", "caldo"]]
+  ];
+
+  const normalizar = (t) => String(t || "")
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  /* Las claves calzan desde el principio de una palabra, no en cualquier parte:
+     así "res" reconoce «Lomo de res» pero no «postres», «fresa» ni «espresso»,
+     y una raíz como "hamburgues" sigue tomando «hamburguesas». */
+  const escaparRegex = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const compilarArte = (tabla) => tabla.map(([archivo, claves]) => [
+    RUTA_ARTE + archivo + ".svg",
+    new RegExp("\\b(" + claves.map(escaparRegex).join("|") + ")")
+  ]);
+
+  const RE_PLATO = compilarArte(ARTE_PLATO);
+  const RE_CATEGORIA = compilarArte(ARTE_CATEGORIA);
+
+  function buscarArte(texto, tabla) {
+    const t = normalizar(texto);
+    if (!t) return null;
+    for (const [ruta, re] of tabla) if (re.test(t)) return ruta;
+    return null;
+  }
+
+  /** Ilustración que le toca a un platillo por su nombre (y, si no, por su categoría). */
+  function imagenPara(nombre, categoriaNombre) {
+    return buscarArte(nombre, RE_PLATO) ||
+           buscarArte(categoriaNombre, RE_CATEGORIA) ||
+           IMAGEN_POR_DEFECTO;
+  }
+
+  /** ¿La imagen es una lámina de relleno que podemos reemplazar sin perder nada? */
+  function imagenDeRelleno(src) {
+    return !src || /^assets\/img\/plato-\d+\.svg$/.test(src) || src === IMAGEN_POR_DEFECTO;
+  }
+
+  /** ¿Es una de nuestras ilustraciones (y no una foto subida desde el panel)? */
+  function esIlustracion(src) {
+    return !src || src.indexOf(RUTA_ARTE) === 0 || /^assets\/img\/plato-\d+\.svg$/.test(src);
+  }
+
   /* ---------- Semilla ---------- */
   function semilla() {
+    const cat = (id, nombre, orden) => ({ id, nombre, orden, imagen: imagenPara(nombre, nombre) });
+
     const categorias = [
-      { id: "cat-entradas",  nombre: "Entradas",      orden: 1, imagen: "assets/img/plato-01.svg" },
-      { id: "cat-parrilla",  nombre: "Parrilla",      orden: 2, imagen: "assets/img/plato-05.svg" },
-      { id: "cat-mar",       nombre: "Del mar",       orden: 3, imagen: "assets/img/plato-03.svg" },
-      { id: "cat-pastas",    nombre: "Pastas",        orden: 4, imagen: "assets/img/plato-07.svg" },
-      { id: "cat-postres",   nombre: "Postres",       orden: 5, imagen: "assets/img/plato-09.svg" },
-      { id: "cat-bebidas",   nombre: "Bebidas",       orden: 6, imagen: "assets/img/plato-11.svg" },
-      { id: "cat-cocteles",  nombre: "Cócteles",      orden: 7, imagen: "assets/img/plato-04.svg" }
+      cat("cat-entradas", "Entradas", 1),
+      cat("cat-parrilla", "Parrilla", 2),
+      cat("cat-mar",      "Del mar",  3),
+      cat("cat-pastas",   "Pastas",   4),
+      cat("cat-postres",  "Postres",  5),
+      cat("cat-bebidas",  "Bebidas",  6),
+      cat("cat-cocteles", "Cócteles", 7)
     ];
 
+    const nombreCat = (id) => (categorias.find(c => c.id === id) || {}).nombre;
+
+    // La ilustración sale del nombre del platillo; no hay que elegirla a mano.
     const p = (nombre, categoriaId, precio, descripcion, imagen) =>
-      ({ id: uid("prod"), nombre, categoriaId, precio, descripcion, imagen, disponible: true });
+      ({ id: uid("prod"), nombre, categoriaId, precio, descripcion,
+         imagen: imagen || imagenPara(nombre, nombreCat(categoriaId)), disponible: true });
 
     const productos = [
-      p("Tabla Kairos", "cat-entradas", 285, "Quesos madurados, embutidos artesanales, encurtidos de la casa y pan de masa madre.", "assets/img/plato-01.svg"),
-      p("Ceviche de la casa", "cat-entradas", 210, "Corvina fresca, leche de tigre, camote asado y chile dulce.", "assets/img/plato-02.svg"),
-      p("Alitas ahumadas", "cat-entradas", 175, "Ocho piezas glaseadas en tamarindo y chile chipotle.", "assets/img/plato-06.svg"),
-      p("Lomo de res 10 oz", "cat-parrilla", 480, "Corte a la parrilla de leña, mantequilla de hierbas y papa rústica.", "assets/img/plato-05.svg"),
-      p("Costilla braseada", "cat-parrilla", 395, "Seis horas de cocción lenta, puré de yuca y jugo de cocción.", "assets/img/plato-08.svg"),
-      p("Pollo a la brasa", "cat-parrilla", 245, "Medio pollo marinado en cítricos, ensalada tibia y tortillas.", "assets/img/plato-12.svg"),
-      p("Camarones al ajillo", "cat-mar", 320, "Camarón jumbo, ajo confitado, vino blanco y pan tostado.", "assets/img/plato-03.svg"),
-      p("Filete de pescado", "cat-mar", 290, "Pescado del día a la plancha, arroz cremoso y vegetales grillados.", "assets/img/plato-10.svg"),
-      p("Pasta al pesto", "cat-pastas", 225, "Linguini fresco, pesto de albahaca, tomate confitado y parmesano.", "assets/img/plato-07.svg"),
-      p("Fettuccine Alfredo", "cat-pastas", 240, "Crema, mantequilla y parmesano. Agregue pollo o camarón.", "assets/img/plato-11.svg"),
-      p("Volcán de chocolate", "cat-postres", 145, "Centro líquido de chocolate 70% con helado de vainilla.", "assets/img/plato-09.svg"),
-      p("Tres leches Kairos", "cat-postres", 130, "Bizcocho esponjoso, dulce de leche y frutos rojos.", "assets/img/plato-04.svg"),
-      p("Limonada con hierbabuena", "cat-bebidas", 65, "Limón natural, hierbabuena fresca y hielo frappé.", "assets/img/plato-11.svg"),
-      p("Café de Santa Bárbara", "cat-bebidas", 55, "Grano local tostado medio, preparado en prensa francesa.", "assets/img/plato-02.svg"),
-      p("Gaseosa / agua", "cat-bebidas", 40, "Botella de 500 ml.", "assets/img/plato-06.svg"),
-      p("Mojito de la casa", "cat-cocteles", 155, "Ron blanco, hierbabuena, limón y soda artesanal.", "assets/img/plato-04.svg"),
-      p("Old Fashioned", "cat-cocteles", 185, "Whisky, azúcar mascabado, bitter y cáscara de naranja.", "assets/img/plato-08.svg"),
-      p("Michelada Kairos", "cat-cocteles", 120, "Cerveza nacional, mezcla de la casa y escarchado de tajín.", "assets/img/plato-12.svg")
+      p("Tabla Kairos", "cat-entradas", 285, "Quesos madurados, embutidos artesanales, encurtidos de la casa y pan de masa madre."),
+      p("Ceviche de la casa", "cat-entradas", 210, "Corvina fresca, leche de tigre, camote asado y chile dulce."),
+      p("Alitas ahumadas", "cat-entradas", 175, "Ocho piezas glaseadas en tamarindo y chile chipotle."),
+      p("Lomo de res 10 oz", "cat-parrilla", 480, "Corte a la parrilla de leña, mantequilla de hierbas y papa rústica."),
+      p("Costilla braseada", "cat-parrilla", 395, "Seis horas de cocción lenta, puré de yuca y jugo de cocción."),
+      p("Pollo a la brasa", "cat-parrilla", 245, "Medio pollo marinado en cítricos, ensalada tibia y tortillas."),
+      p("Camarones al ajillo", "cat-mar", 320, "Camarón jumbo, ajo confitado, vino blanco y pan tostado."),
+      p("Filete de pescado", "cat-mar", 290, "Pescado del día a la plancha, arroz cremoso y vegetales grillados."),
+      p("Pasta al pesto", "cat-pastas", 225, "Linguini fresco, pesto de albahaca, tomate confitado y parmesano."),
+      p("Fettuccine Alfredo", "cat-pastas", 240, "Crema, mantequilla y parmesano. Agregue pollo o camarón."),
+      p("Volcán de chocolate", "cat-postres", 145, "Centro líquido de chocolate 70% con helado de vainilla."),
+      p("Tres leches Kairos", "cat-postres", 130, "Bizcocho esponjoso, dulce de leche y frutos rojos."),
+      p("Limonada con hierbabuena", "cat-bebidas", 65, "Limón natural, hierbabuena fresca y hielo frappé."),
+      p("Café de Santa Bárbara", "cat-bebidas", 55, "Grano local tostado medio, preparado en prensa francesa."),
+      p("Gaseosa / agua", "cat-bebidas", 40, "Botella de 500 ml."),
+      p("Mojito de la casa", "cat-cocteles", 155, "Ron blanco, hierbabuena, limón y soda artesanal."),
+      p("Old Fashioned", "cat-cocteles", 185, "Whisky, azúcar mascabado, bitter y cáscara de naranja."),
+      p("Michelada Kairos", "cat-cocteles", 120, "Cerveza nacional, mezcla de la casa y escarchado de tajín.")
     ];
 
     const mesas = [];
     for (let i = 1; i <= 14; i++) mesas.push({ numero: String(i), codigo: codigoMesa(i), activa: true });
 
     return {
-      version: 1,
+      version: VERSION_DB,
       config: {
         nombre: "Kairos",
         eslogan: "Cocina de autor y coctelería nocturna",
@@ -147,11 +251,30 @@ const Kairos = (function () {
     try { raw = localStorage.getItem(DB_KEY); } catch (e) { raw = null; }
     if (raw) {
       try { cache = JSON.parse(raw); } catch (e) { cache = semilla(); }
+      if (migrar(cache)) guardar();
     } else {
       cache = semilla();
       guardar();
     }
     return cache;
+  }
+
+  /* Pone al día una base guardada de antes. Devuelve true si hubo cambios.
+     v2: las láminas de relleno pasan a las ilustraciones por nombre de platillo.
+     Las fotos subidas desde el panel (data:image/...) no se tocan. */
+  function migrar(d) {
+    if (!d || (d.version || 1) >= VERSION_DB) return false;
+    const cats = d.categorias || [];
+    cats.forEach(c => {
+      if (imagenDeRelleno(c.imagen)) c.imagen = imagenPara(c.nombre, c.nombre);
+    });
+    (d.productos || []).forEach(p => {
+      if (!imagenDeRelleno(p.imagen)) return;
+      const cat = cats.find(c => c.id === p.categoriaId);
+      p.imagen = imagenPara(p.nombre, cat && cat.nombre);
+    });
+    d.version = VERSION_DB;
+    return true;
   }
 
   function guardar() {
@@ -453,6 +576,7 @@ const Kairos = (function () {
     ventasDelDia, ventasEntre, resumirVentas, semanaActual, masVendidos,
     // catálogo
     guardarProducto, borrarProducto, guardarCategoria, borrarCategoria,
+    imagenPara, esIlustracion, IMAGEN_POR_DEFECTO,
     // arqueo
     guardarArqueo,
     // admin

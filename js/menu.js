@@ -134,7 +134,7 @@
     return `
       <article class="card dish ${p.disponible ? "" : "dish--agotado"}">
         <div class="dish__img">
-          <img src="${esc(p.imagen || "assets/img/plato-01.svg")}" alt="${esc(p.nombre)}" loading="lazy">
+          <img src="${esc(p.imagen || Kairos.IMAGEN_POR_DEFECTO)}" alt="${esc(p.nombre)}" loading="lazy">
           <span class="dish__flag chip ${p.disponible ? "chip--green" : "chip--red"}">${p.disponible ? "Disponible" : "Agotado"}</span>
         </div>
         <div class="dish__body">

@@ -17,7 +17,9 @@ js/acceso.js        Entrada discreta al panel
 js/site.js          Landing
 js/menu.js          Menú digital
 js/admin.js         Panel
-assets/img/         Imágenes de referencia (SVG). Reemplácelas por las fotos reales
+assets/img/         Portadas del sitio y fotos del local
+assets/img/platos/  Una ilustración por platillo (SVG), servidas según el nombre
+tools/              Generador de las ilustraciones (opcional, solo para regenerarlas)
 ```
 
 ## Cómo abrirlo
@@ -78,8 +80,38 @@ Core, con la misma forma de datos que `store.js` ya usa).
 Cuando llegue ese momento, lo único que hay que cambiar son las funciones de `store.js`:
 la interfaz que consumen `menu.js` y `admin.js` ya está aislada ahí.
 
-## Imágenes
+## Imágenes de la carta
 
-Las de `assets/img/` son SVG de relleno. Reemplácelas por las fotos reales con el mismo
-nombre, o cárguelas desde el panel en Productos → Editar → Subir foto (se reducen a 640 px
-y se guardan como JPEG).
+Cada platillo trae su propia ilustración, dibujada para ese plato: la tabla de quesos, el
+ceviche en copa, el corte a la parrilla, la cazuela de camarones, el vaso de mojito. Son
+SVG vectoriales, viven en `assets/img/platos/` y pesan poco, así que el menú abre rápido
+aunque el cliente esté con datos móviles.
+
+**No hay que elegirlas a mano.** La imagen sale del *nombre* del platillo: al escribir
+«Sopa de caracol», «Baleada sencilla» o «Copa de vino tinto» en Productos → Nuevo producto,
+la ilustración cambia sola mientras usted escribe. Si el nombre no se parece a nada
+conocido, se usa la ilustración de la categoría y, en último caso, un plato genérico.
+El botón **Usar ilustración** vuelve a la automática en cualquier momento.
+
+**Para poner la foto real** de un plato: Productos → Editar → **Subir foto**. La foto se
+reduce a 640 px, se guarda como JPEG y manda sobre la ilustración; ya no vuelve a cambiar
+sola aunque se edite el nombre.
+
+Las bases guardadas de antes se actualizan solas al abrir el sitio: los rellenos viejos
+pasan a la ilustración que les toca y las fotos que usted ya había subido no se tocan.
+
+### Regenerar o agregar ilustraciones
+
+Las láminas las dibuja un script de Python. Solo hace falta si quiere retocarlas o agregar
+un platillo nuevo al repertorio:
+
+```bash
+python3 tools/generar-imagenes.py
+```
+
+Para sumar un dibujo nuevo: escriba su función en `tools/generar-imagenes.py`, agréguelo a
+la lista `CARTA` del final y anote sus palabras clave en la tabla `ARTE_PLATO` de
+`js/store.js` (el orden importa: lo más específico va primero).
+
+Las tres fotos del local (`assets/img/lugar-*.svg`) siguen siendo de relleno: reemplácelas
+por las fotografías reales con el mismo nombre.

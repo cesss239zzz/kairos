@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="640" height="480" role="img" aria-label="Plato de la carta de Kairos">
+<defs>
+<radialGradient id="kbg" cx="50%" cy="40%" r="76%">
+<stop offset="0%" stop-color="#262322"/><stop offset="54%" stop-color="#121111"/><stop offset="100%" stop-color="#060606"/>
+</radialGradient>
+<radialGradient id="kglow" cx="50%" cy="46%" r="52%">
+<stop offset="0%" stop-color="#ff6600" stop-opacity=".28"/><stop offset="100%" stop-color="#ff6600" stop-opacity="0"/>
+</radialGradient>
+<filter id="kblur" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="ksoft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3.0"/></filter>
+<radialGradient id="pge" cx="50%" cy="34%" r="72%"><stop offset="0%" stop-color="#33302f"/><stop offset="58%" stop-color="#1d1c1b"/><stop offset="100%" stop-color="#100f0f"/></radialGradient><linearGradient id="pgeb" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.13"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient><linearGradient id="cub" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e2e8ea"/><stop offset="100%" stop-color="#7d8487"/></linearGradient>
+</defs>
+<rect width="640" height="480" fill="url(#kbg)"/>
+<ellipse cx="320.0" cy="220.8" rx="300.8" ry="220.8" fill="url(#kglow)"/>
+<g transform="translate(0.00 0.00) scale(1.0000)">
+<ellipse cx="320.0" cy="289.8" rx="164.3" ry="58.3" fill="#000" opacity="0.55" filter="url(#kblur)"/><ellipse cx="320.0" cy="258.0" rx="158.0" ry="106.0" fill="url(#pge)" stroke="#413e3d" stroke-width="1.5"/><ellipse cx="320.0" cy="261.0" rx="110.6" ry="70.0" fill="#161515" stroke="#454241" stroke-width="1"/><path d="M 166.0 256.0 a 154.0 102.0 0 0 1 308.0 0" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.10"/><ellipse cx="320.0" cy="258.0" rx="88.0" ry="56.0" fill="#191818" stroke="#3f3c3b" stroke-width="1"/><ellipse cx="320.0" cy="254.0" rx="46.0" ry="28.0" fill="#ff6600" opacity="0.10"/><path d="M 268 258 a 52 34 0 0 1 104 0" fill="none" stroke="#ff6600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/><g transform="rotate(-4 150 258)"><rect x="134.0" y="150" width="6" height="48" rx="3" fill="url(#cub)"/><rect x="146.0" y="150" width="6" height="48" rx="3" fill="url(#cub)"/><rect x="158.0" y="150" width="6" height="48" rx="3" fill="url(#cub)"/><path d="M 134 192 q 22 20 44 0 l 0 12 q -22 18 -44 0 Z" fill="url(#cub)"/><rect x="151" y="198" width="8" height="152" rx="4" fill="url(#cub)"/></g><g transform="rotate(4 492 258)"><path d="M 482 148 q 26 16 18 78 l -18 0 Z" fill="url(#cub)" stroke="#5e6568" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><rect x="482" y="222" width="9" height="128" rx="4" fill="url(#cub)"/></g>
+</g>
+<text x="624" y="466" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="13" letter-spacing="2" fill="#6b6a6a">KAIROS</text>
+</svg>

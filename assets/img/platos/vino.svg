@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="640" height="480" role="img" aria-label="Copa de vino tinto">
+<defs>
+<radialGradient id="kbg" cx="50%" cy="40%" r="76%">
+<stop offset="0%" stop-color="#262322"/><stop offset="54%" stop-color="#121111"/><stop offset="100%" stop-color="#060606"/>
+</radialGradient>
+<radialGradient id="kglow" cx="50%" cy="46%" r="52%">
+<stop offset="0%" stop-color="#ff3fa4" stop-opacity=".28"/><stop offset="100%" stop-color="#ff3fa4" stop-opacity="0"/>
+</radialGradient>
+<filter id="kblur" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="ksoft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3.0"/></filter>
+<linearGradient id="copa" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.20"/><stop offset="45%" stop-color="#ffffff" stop-opacity="0.04"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0.14"/></linearGradient><linearGradient id="tinto" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#a01530"/><stop offset="55%" stop-color="#6d0a1f"/><stop offset="100%" stop-color="#3d0512"/></linearGradient>
+</defs>
+<rect width="640" height="480" fill="url(#kbg)"/>
+<ellipse cx="320.0" cy="220.8" rx="300.8" ry="220.8" fill="url(#kglow)"/>
+<g transform="translate(0.00 0.00) scale(1.0000)">
+<ellipse cx="320.0" cy="404.0" rx="96.0" ry="14.0" fill="#000" opacity="0.5" filter="url(#kblur)"/><path d="M 312 286 L 312 384" fill="none" stroke="#e8eef0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><path d="M 260 392 q 60 -14 120 0 q -60 14 -120 0 Z" fill="#ffffff" stroke="#d3dadc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.14"/><path d="M 236 158 q 0 122 84 130 q 84 -8 84 -130 Z" fill="url(#copa)" stroke="#d3dadc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><clipPath id="cvi"><path d="M 236 158 q 0 122 84 130 q 84 -8 84 -130 Z"/></clipPath><g clip-path="url(#cvi)"><path d="M 228 232 q 92 26 188 0 l 0 70 q -50 62 -94 62 q -44 0 -94 -62 Z" fill="url(#tinto)"/></g><ellipse cx="320.0" cy="234.0" rx="82.0" ry="16.0" fill="#c02744" opacity="0.75"/><path d="M 252 190 q 20 74 60 92" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.22"/><path d="M 244 166 q 76 20 152 0" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.28"/>
+</g>
+<text x="624" y="466" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="13" letter-spacing="2" fill="#6b6a6a">KAIROS</text>
+</svg>
